@@ -4,9 +4,9 @@ namespace It20Academy\App\Core;
 
 class Request
 {
-    private $controller = 'IndexController';
+    private string $controller = 'Index';
 
-    private $method = 'index';
+    private string $method = 'index';
 
     public function __construct()
     {
@@ -14,8 +14,8 @@ class Request
         $uri = array_diff($uri, []);
 
         // controller
-        if (isset($uri[1])) {
-            $this->controller = ucfirst($uri[1]); // Posts
+        if (isset($uri[1]) && ! empty($uri[1])) {
+            $this->controller = ucfirst($uri[1]);
         }
 
         // method
@@ -26,14 +26,12 @@ class Request
 
     public function validateCommand(): bool
     {
-        // controller
         if (! class_exists("It20Academy\App\Controllers\\{$this->controller}Controller")) {
             dump("It20Academy\App\Controllers\\{$this->controller}Controller does not exists!");
 
             return false;
         }
 
-        // method
         if (! method_exists("It20Academy\App\Controllers\\{$this->controller}Controller", $this->method)) {
             dump("Method {$this->method} does not exists!");
 

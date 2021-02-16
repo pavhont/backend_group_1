@@ -9,15 +9,17 @@ class App
         $request = new Request();
 
         if (! $request->validateCommand()) {
-            dump('Invalid data');
+            dump('Invalid command');
 
-            return false;
+            return ;
         }
 
         $controllerName = $request->getController();
         $method = $request->getMethod();
 
-        $controller = new $controllerName; // It20Academy\App\Controllers\PostsController
+
+        $controller = new $controllerName;
+
         $controller->$method();
     }
 }
